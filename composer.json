@@ -3,6 +3,7 @@
   "license": "GPL-2.0",
   "type": "ezplatform-bundle",
   "description": "eZ Platform Contents by type",
+  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Emmanuel DROUET"
