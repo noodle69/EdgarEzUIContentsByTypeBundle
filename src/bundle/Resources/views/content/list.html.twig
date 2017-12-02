@@ -1,0 +1,81 @@
+{% extends "@EzPlatformAdminUi/layout.html.twig" %}
+
+{% trans_default_domain 'content_list' %}
+
+{% block breadcrumbs %}
+    {% include '@EzPlatformAdminUi/parts/breadcrumbs.html.twig' with { items: [
+        { value: 'breadcrumb.content'|trans(domain='messages')|desc('Content') , },
+        { url: path('edgar.uicontentsbytype.menu'), value: 'content_list.breadcrumb.view'|trans|desc('Contents by type') },
+    ]} %}
+{% endblock %}
+
+{% block pageTitle %}
+    {% include '@EzPlatformAdminUi/parts/page_title.html.twig' with {
+        title: 'content_list.view.title'|trans|desc('Contents by type'),
+        iconName: 'content-types'
+    } %}
+{% endblock %}
+
+{% block content %}
+    <section class="container mt-4">
+        {{ form_start(form_filter_content, { 'action': path('edgar.uicontentsbytype.menu') }) }}
+            <div class="ez-extra-actions__section-content ez-extra-actions__section-content--content-type">
+                <div class="input-group">
+                    {{ form_widget(form_filter_content.content_type) }}
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">
+                        <svg class="ez-icon ez-icon-search-button">
+                            <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#search"></use>
+                        </svg>
+                        {{ 'search.perform'|trans|desc('Search') }}</button>
+                    </span>
+                </div>
+            </div>
+        {{ form_end(form_filter_content) }}
+
+        {% if results is defined %}
+            <div class="ez-table-header mt-3">
+                <h5>{{ 'search.header'|trans({'%total%': pager.nbResults})|desc('Search results (%total%)') }}</h5>
+            </div>
+
+            {% if results is empty %}
+                <table class="table">
+                    <tr>
+                        <td colspan="4">
+                            <span>{{ 'search.no_result'|trans|desc('Sorry, no results were found.') }}</span>
+                        </td>
+                    </tr>
+                </table>
+            {% else %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{{ 'search.name'|trans|desc('Name') }}</th>
+                        <th>{{ 'search.modified'|trans|desc('Modified') }}</th>
+                        <th>{{ 'search.type'|trans|desc('Content Type') }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in results %}
+                        {% include '@EzPlatformAdminUi/admin/search/search_table_row.html.twig' with { row: row } %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row justify-content-center align-items-center">
+                    <h6>{{ 'search.viewing'|trans({'%viewing%': pager.currentPageResults|length, '%total%': pager.nbResults})|desc('Viewing %viewing% out of %total% sub-items') }}</h6>
+                </div>
+                {% if pager.haveToPaginate %}
+                    <div class="row justify-content-center align-items-center">
+                        {{ pagerfanta(pager, 'ez') }}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        {% endif %}
+
+    </section>
+
+    <br />
+
+{% endblock %}

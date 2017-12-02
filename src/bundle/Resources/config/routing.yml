@@ -1,0 +1,4 @@
+edgar.uicontentsbytype.menu:
+    path: /content/list
+    defaults:
+        _controller: 'EdgarEzUIContentsByTypeBundle:ContentList:menu'
