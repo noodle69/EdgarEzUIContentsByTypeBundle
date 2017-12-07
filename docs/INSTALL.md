@@ -34,4 +34,6 @@ Add to your global configuration app/config/routing.yml
 ```yaml
 edgar.ezuicontentsbytype:
     resource: '@EdgarEzUIContentsByTypeBundle/Resources/config/routing.yml'
+    defaults:
+        siteaccess_group_whitelist: 'admin_group'    
 ```
