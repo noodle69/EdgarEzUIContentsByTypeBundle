@@ -4,7 +4,6 @@ namespace Edgar\EzUIContentsByTypeBundle\Controller;
 
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use EzSystems\EzPlatformAdminUi\Tab\Dashboard\PagerContentToDataMapper;
 use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
