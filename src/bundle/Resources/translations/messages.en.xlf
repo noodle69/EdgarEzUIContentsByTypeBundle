@@ -8,12 +8,17 @@
     <body>
       <trans-unit id="72c799449c5841729841d65bbd04e1923c566de7" resname="breadcrumb.content">
         <source>Content</source>
-        <target state="new">Content</target>
+        <target>Content</target>
         <note>key: breadcrumb.content</note>
+      </trans-unit>
+      <trans-unit id="07ece9c96ddeffadbf29c209d731ec57f3d6991b" resname="edgarez_filtercontentstype.locations">
+        <source>edgarez_filtercontentstype.locations</source>
+        <target state="new">Choose parent location(s)</target>
+        <note>key: edgarez_filtercontentstype.locations</note>
       </trans-unit>
       <trans-unit id="a8256cebb724ba47e6a711b199b46fc040ea5bc6" resname="main__content__list">
         <source>Contents by type</source>
-        <target state="new">Contents by type</target>
+        <target>Contents by type</target>
         <note>key: main__content__list</note>
       </trans-unit>
     </body>

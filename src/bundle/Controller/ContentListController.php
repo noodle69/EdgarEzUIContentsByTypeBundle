@@ -3,6 +3,7 @@
 namespace Edgar\EzUIContentsByTypeBundle\Controller;
 
 use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use EzSystems\EzPlatformAdminUi\Tab\Dashboard\PagerContentToDataMapper;
@@ -53,18 +54,8 @@ class ContentListController extends Controller
             $result = $this->submitHandler->handle($filterContentType, function (FilterContentData $data) use ($filterContentType) {
                 $limit = $data->getLimit();
                 $page = $data->getPage();
-                $content_type = $data->getContentType();
 
-                $query = new Query();
-                $query->filter = new Criterion\LogicalAnd(
-                    [
-                        new Criterion\Visibility(Criterion\Visibility::VISIBLE),
-                        new Criterion\ContentTypeIdentifier($content_type->identifier),
-                    ]
-                );
-
-                $query->sortClauses[] = new SortClause\DateModified(Query::SORT_DESC);
-
+                $query = $this->buildQuery($data);
                 $pagerfanta = new Pagerfanta(
                     new ContentSearchAdapter($query, $this->searchService)
                 );
@@ -87,5 +78,35 @@ class ContentListController extends Controller
         return $this->render('@EdgarEzUIContentsByType/content/list.html.twig', [
             'form_filter_content' => $filterContentType->createView(),
         ]);
+    }
+
+    private function buildQuery(FilterContentData $data): Query
+    {
+        $content_type = $data->getContentType();
+        $criterions = [
+            new Criterion\ContentTypeIdentifier($content_type->identifier),
+        ];
+
+        $onlyVisible = $data->getOnlyVisible();
+        if ($onlyVisible) {
+            $criterions[] = new Criterion\Visibility(Criterion\Visibility::VISIBLE);
+        }
+
+        /** @var Location[] $locations */
+        $locations = $data->getLocations();
+        if (!empty($locations)) {
+            $criterionsLocation = [];
+            foreach ($locations as $location) {
+                $criterionsLocation[] = new Criterion\ParentLocationId($location->id);
+            }
+            $queryLocation = new Criterion\LogicalOr($criterionsLocation);
+            $criterions[] = $queryLocation;
+        }
+
+        $query = new Query();
+        $query->filter = new Criterion\LogicalAnd($criterions);
+        $query->sortClauses[] = new SortClause\DateModified(Query::SORT_DESC);
+
+        return $query;
     }
 }

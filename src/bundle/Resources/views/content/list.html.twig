@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'content_list' %}
 
+{% block bodyClass %}ez-info-view{% endblock %}
+
 {% block breadcrumbs %}
     {% include '@EzPlatformAdminUi/parts/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.content'|trans(domain='messages')|desc('Content') , },
@@ -12,25 +14,55 @@
 {% block pageTitle %}
     {% include '@EzPlatformAdminUi/parts/page_title.html.twig' with {
         title: 'content_list.view.title'|trans|desc('Contents by type'),
-        iconName: 'content-list'
+        iconName: 'browse'
     } %}
 {% endblock %}
 
 {% block content %}
     <section class="container mt-4">
         {{ form_start(form_filter_content, { 'action': path('edgar.uicontentsbytype.menu') }) }}
-            <div class="ez-extra-actions__section-content ez-extra-actions__section-content--content-type">
-                <div class="input-group">
-                    {{ form_widget(form_filter_content.content_type) }}
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">
-                        <svg class="ez-icon ez-icon-search-button">
-                            <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#search"></use>
-                        </svg>
-                        {{ 'search.perform'|trans|desc('Search') }}</button>
-                    </span>
-                </div>
+            <div class="input-group">
+                {{ form_widget(form_filter_content.content_type) }}
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">
+                    <svg class="ez-icon ez-icon-search-button">
+                        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#search"></use>
+                    </svg>
+                    {{ 'search.perform'|trans|desc('Search') }}</button>
+                </span>
             </div>
+            <br />
+            <table class="table ez-table--list">
+                <thead>
+                    <tr>
+                        <th colspan="2">{{ 'Additional filters'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{ form_widget(form_filter_content.locations) }}
+                        </td>
+                        <td>
+                            <ul id="selected_locations">
+                                {% if form_filter_content.locations.vars.value %}
+                                    {% for parentLocation in form_filter_content.locations.vars.value.location %}
+                                        <li>{{ parentLocation.contentInfo.name }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ 'Show only visible content'|trans }}
+                        </td>
+                        <td>
+                            {{ form_widget(form_filter_content.onlyVisible) }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         {{ form_end(form_filter_content) }}
 
         {% if results is defined %}
@@ -77,5 +109,12 @@
     </section>
 
     <br />
+{% endblock %}
 
+{% block javascripts %}
+    {%  javascripts
+        '@EdgarEzUIContentsByTypeBundle/Resources/public/js/admin.filtercontentstype.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

@@ -26,6 +26,12 @@ class FilterContentData
      */
     private $content_type;
 
+    /** @var array|null  */
+    private $locations;
+
+    /** @var bool */
+    private $onlyVisible;
+
     /**
      * SimpleSearchData constructor.
      *
@@ -33,11 +39,18 @@ class FilterContentData
      * @param int $page
      * @param ContentType|null $content_type
      */
-    public function __construct(int $limit = 10, int $page = 1, ?ContentType $content_type = null)
-    {
+    public function __construct(
+        int $limit = 10,
+        int $page = 1,
+        ?ContentType $content_type = null,
+        ?array $locations = null,
+        ?bool $onlyVisible = true
+    ) {
         $this->limit = $limit;
         $this->page = $page;
         $this->content_type = $content_type;
+        $this->locations = $locations;
+        $this->onlyVisible = $onlyVisible;
     }
 
     /**
@@ -76,6 +89,20 @@ class FilterContentData
         return $this;
     }
 
+    public function setLocations(?array $locations): self
+    {
+        $this->locations = $locations;
+
+        return $this;
+    }
+
+    public function setOnlyVisible(?bool $onlyVisible = true): self
+    {
+        $this->onlyVisible = $onlyVisible;
+
+        return $this;
+    }
+
     /**
      * @return int
      */
@@ -98,5 +125,15 @@ class FilterContentData
     public function getContentType(): ?ContentType
     {
         return $this->content_type;
+    }
+
+    public function getLocations(): ?array
+    {
+        return $this->locations;
+    }
+
+    public function getOnlyVisible(): ?bool
+    {
+        return $this->onlyVisible;
     }
 }
