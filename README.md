@@ -8,7 +8,7 @@ eZ Platform Content list by type interface
 
 ## Description
 
-This bundle offer an interface to list contents by type
+This bundle offers an interface to list contents by type
 
 ## Documentation
 
