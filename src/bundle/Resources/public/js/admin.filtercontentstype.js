@@ -24,7 +24,7 @@
     const openUDW = (event) => {
         event.preventDefault();
 
-        selectedLocationIds.values = '';
+        selectedLocationIds.value = '';
         selectedContentNames.innerHTML = '';
 
         const form = document.querySelector('form[name="edgarfiltercontentstype"]');
