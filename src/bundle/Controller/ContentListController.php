@@ -49,6 +49,7 @@ class ContentListController extends Controller
             new FilterContentData()
         );
         $filterContentType->handleRequest($request);
+        $filterContentType->getData()->setPage($request->get('page', 1));
 
         if ($filterContentType->isSubmitted() && $filterContentType->isValid()) {
             $result = $this->submitHandler->handle($filterContentType, function (FilterContentData $data) use ($filterContentType) {
