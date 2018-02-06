@@ -26,7 +26,7 @@ class FilterContentData
      */
     private $content_type;
 
-    /** @var array|null  */
+    /** @var array|null */
     private $locations;
 
     /** @var bool */

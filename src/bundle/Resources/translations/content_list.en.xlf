@@ -8,8 +8,13 @@
     <body>
       <trans-unit id="f6bd942eba8f8d221ec96c1cf4f094e7abb9094f" resname="Additional filters">
         <source>Additional filters</source>
-        <target state="new">Additional filters</target>
+        <target>Additional filters</target>
         <note>key: Additional filters</note>
+      </trans-unit>
+      <trans-unit id="dd718de8ed59983b85bf6936d850f5da9e55051c" resname="Show only visible content">
+        <source>Show only visible content</source>
+        <target state="new">Show only visible content</target>
+        <note>key: Show only visible content</note>
       </trans-unit>
       <trans-unit id="9e9a29bad925bea49781ccff237d223b4860689e" resname="content_list.breadcrumb.view">
         <source>Contents by type</source>

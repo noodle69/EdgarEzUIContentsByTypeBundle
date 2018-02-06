@@ -19,7 +19,7 @@ class ConfigureMenuListener implements TranslationContainerInterface
         $menu = $event->getMenu();
 
         $contentMenu = $menu->getChild(MainMenuBuilder::ITEM_CONTENT);
-        $contentMenu->addChild(self::ITEM_CONTENT__LIST, array('route' => 'edgar.uicontentsbytype.menu'));
+        $contentMenu->addChild(self::ITEM_CONTENT__LIST, ['route' => 'edgar.uicontentsbytype.menu']);
     }
 
     /**

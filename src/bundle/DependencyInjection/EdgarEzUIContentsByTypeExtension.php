@@ -22,6 +22,6 @@ class EdgarEzUIContentsByTypeExtension extends Extension implements PrependExten
 
     public function prepend(ContainerBuilder $container)
     {
-        $container->prependExtensionConfig('assetic', array('bundles' => array('EdgarEzUIContentsByTypeBundle')));
+        $container->prependExtensionConfig('assetic', ['bundles' => ['EdgarEzUIContentsByTypeBundle']]);
     }
 }

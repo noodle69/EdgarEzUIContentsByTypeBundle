@@ -25,7 +25,8 @@ class FormFactory
         FilterContentData $data,
         ?string $name = null
     ): ?FormInterface {
-        $name = 'edgarfiltercontentstype';
+        $name = $name ? $name : 'edgarfiltercontentstype';
+
         return $this->formFactory->createNamed(
             $name,
             FilterContentType::class,

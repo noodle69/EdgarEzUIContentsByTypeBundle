@@ -12,8 +12,8 @@
         <note>key: breadcrumb.content</note>
       </trans-unit>
       <trans-unit id="07ece9c96ddeffadbf29c209d731ec57f3d6991b" resname="edgarez_filtercontentstype.locations">
-        <source>edgarez_filtercontentstype.locations</source>
-        <target state="new">Choose parent location(s)</target>
+        <source>Choose parent location(s)</source>
+        <target>Choose parent location(s)</target>
         <note>key: edgarez_filtercontentstype.locations</note>
       </trans-unit>
       <trans-unit id="a8256cebb724ba47e6a711b199b46fc040ea5bc6" resname="main__content__list">
